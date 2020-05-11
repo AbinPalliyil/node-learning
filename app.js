@@ -2,15 +2,25 @@ const express = require('express');
 
 const app = express();
 
-app.use((req, res, next) => {
-	console.log('First middleware');
-	next();
-});
+//parse data
+app.use(express.urlencoded({extended: false}));
 
-app.use((req, res, next) => {
-	console.log('Second middleware');
-	res.send('Middleware example');
+
+app.get('/add-product', (req, res, next) => {
+    res.send(
+		'<form action="/product" method="POST"><input type="text" name="title" /><button type="submit">Add</button></form>',
+	);
+})
+
+app.post('/product', (req, res, next) => {
+	res.send('/');
 });
+//root routes always last
+app.get('/', (req, res, next) => {
+    res.send('Homepage')
+})
+
+
 
 app.listen(5000, () => {
 	console.log('App is running in port 5000');
