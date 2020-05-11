@@ -1,24 +1,24 @@
 const express = require('express');
 
+const adminRoute = require('./routes/admin');
+const shopRoute = require('./routes/shop');
+
 const app = express();
 
 //parse data
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
-
-app.get('/add-product', (req, res, next) => {
-    res.send(
-		'<form action="/product" method="POST"><input type="text" name="title" /><button type="submit">Add</button></form>',
-	);
-})
-
-app.post('/product', (req, res, next) => {
-	res.send('/');
-});
-//root routes always last
 app.get('/', (req, res, next) => {
-    res.send('Homepage')
-})
+	res.send('Homepage');
+});
+
+app.use('/api/admin', adminRoute);
+app.use('/api/shop', shopRoute);
+
+//error page
+app.use((req, res, next) => {
+	res.status(404).send('Page not found');
+});
 
 
 
