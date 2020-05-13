@@ -1,8 +1,8 @@
-//To store product
-const product = [];
+const Product = require('../models/product');
 
 //Get product list
 exports.getProducts = (req, res, next) => {
+	const product = Product.fetchAll();
 	res.render('shop', {
 		pageTitle: 'ViewProducts',
 		products: product,
@@ -16,6 +16,8 @@ exports.getAddProduct = (req, res, next) => {
 
 //Add product
 exports.addProduct = (req, res, next) => {
-	product.push({title: req.body.title})
+	const product = new Product(req.body.title);
+	product.save();
+
 	res.redirect('/shop');
-}
+};
