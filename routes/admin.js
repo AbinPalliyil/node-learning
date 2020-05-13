@@ -15,7 +15,7 @@ const product = [];
  */
 router.get('/add-product', (req, res, next) => {
 
-	res.sendFile(path.join(rootDir, 'view', 'add-product.html'));
+	res.render('add-product',{pageTitle: "Add Products"});
 });
 
 /**
@@ -24,7 +24,6 @@ router.get('/add-product', (req, res, next) => {
  * @access Private
  */
 router.post('/add-product', (req, res, next) => {
-	console.log(req.body)
 	product.push({title: req.body.title})
 	res.redirect('/shop');
 });
