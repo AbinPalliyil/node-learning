@@ -2,11 +2,13 @@ const Product = require('../models/product');
 
 //Get product list
 exports.getProducts = (req, res, next) => {
-	const product = Product.fetchAll();
-	res.render('shop', {
-		pageTitle: 'ViewProducts',
-		products: product,
+	const product = Product.fetchAll(product => {
+		res.render('shop', {
+			pageTitle: 'ViewProducts',
+			products: product,
+		});
 	});
+	
 };
 
 //Get add product form
